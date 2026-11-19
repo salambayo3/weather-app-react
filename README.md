@@ -1,145 +1,93 @@
-<<<<<<< HEAD
-# React + Vite
+# Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React weather app that shows current conditions and a 7-day forecast for any city. The page background is a sky that changes with the weather and the time of day.
 
-Currently, two official plugins are available:
+**Live demo:** https://salambayo3.github.io/weather-app-react/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# 🌤️ Weather App
-
-A clean, responsive weather app that shows current conditions and a 5-day forecast for any city in the world.
-
-![Weather App Screenshot](./screenshots/preview.png)
-
-**Live demo:** [your-demo-link-here](https://your-demo-link-here)
-
----
+![Weather app screenshot](screenshot.png)
+![alt text](<Screenshot 2026-11-18 230000.png>)
 
 ## Features
 
-- 🔍 Search weather by city name
-- 📍 Use your current location (geolocation)
-- 🌡️ Current temperature, "feels like", humidity, wind speed, and pressure
-- 📅 5-day forecast
-- 🔄 Toggle between °C and °F
-- 🌙 Light and dark mode
-- 📱 Fully responsive on mobile, tablet, and desktop
-- ⚠️ Friendly error handling for invalid cities and network issues
+- Search any city and see its current temperature, conditions, feels-like temperature, and wind
+- 7-day forecast with a range bar for each day, drawn on one shared scale so days are easy to compare
+- Switch between °C and °F (wind switches between km/h and mph)
+- Background sky changes for clear, cloudy, rain, storm, snow, and fog, with separate day and night looks
+- Remembers your last city and temperature unit
+- Clear messages when a city isn't found, the network is down, or the weather service is unavailable
+- Cancels outdated requests, so a slow search can't overwrite a newer one
+- Responsive layout, keyboard focus styles, and reduced-motion support
 
-## Tech Stack
+## Tech stack
 
-- **Framework:** React / Next.js
-- **Styling:** CSS / Tailwind CSS
-- **API:** [OpenWeatherMap](https://openweathermap.org/api)
-- **Deployment:** Vercel
+- [React](https://react.dev) with hooks (`useState`, `useEffect`, `useRef`)
+- [Vite](https://vite.dev) for development and builds
+- [Open-Meteo](https://open-meteo.com) geocoding and forecast APIs (no API key needed)
+- Plain CSS with custom properties for the sky themes
+- [GitHub Pages](https://pages.github.com) for hosting, deployed with `gh-pages`
 
-## Getting Started
+## Getting started
 
-### Prerequisites
+You need [Node.js](https://nodejs.org) 20 or newer.
 
-- Node.js 18 or later
-- npm or yarn
-- A free API key from [OpenWeatherMap](https://home.openweathermap.org/users/sign_up)
-
-### Installation
-
-1. Clone the repository
-
-   ```bash
-   git clone https://github.com/your-username/weather-app.git
-   cd weather-app
-   ```
-
-2. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-3. Create a `.env.local` file in the project root and add your API key
-
-   ```env
-   NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
-   ```
-
-4. Start the development server
-
-   ```bash
-   npm run dev
-   ```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Available Scripts
-
-| Command           | Description                       |
-| ----------------- | --------------------------------- |
-| `npm run dev`     | Start the development server      |
-| `npm run build`   | Create a production build         |
-| `npm start`       | Run the production build          |
-| `npm run lint`    | Lint the codebase                 |
-
-## Project Structure
-
-```
-weather-app/
-├── public/            # Static assets
-├── src/
-│   ├── components/    # Reusable UI components
-│   ├── pages/         # App pages / routes
-│   ├── hooks/         # Custom hooks (e.g. useWeather)
-│   ├── utils/         # Helpers (unit conversion, formatting)
-│   └── styles/        # Global styles
-├── .env.local         # Environment variables (not committed)
-└── README.md
+```bash
+git clone https://github.com/salambayo3/weather-app-react.git
+cd weather-app-react
+npm install
+npm run dev
 ```
 
-## How It Works
+Open the address printed in the terminal (usually `http://localhost:5173`).
 
-1. The user searches for a city or allows location access.
-2. The app calls the OpenWeatherMap API with the city name or coordinates.
-3. The response is parsed and displayed as current conditions and a daily forecast.
+To test the production build locally:
 
-## Roadmap
+```bash
+npm run build
+npm run preview
+```
 
-- [ ] Hourly forecast
-- [ ] Save favorite cities
-- [ ] Weather alerts
-- [ ] Animated weather icons
+## Deploying to GitHub Pages
 
-## Contributing
+1. Set `base` in `vite.config.js` to your repo name:
 
-Contributions are welcome!
+   ```js
+   base: "/weather-app-react/",
+   ```
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m "Add amazing feature"`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Deploy:
 
-## License
+   ```bash
+   npm run deploy
+   ```
 
-Distributed under the MIT License. See `LICENSE` for more information.
+3. In the repo, go to **Settings → Pages** and set the source to the `gh-pages` branch and the `/ (root)` folder.
 
-## Acknowledgments
+## Project structure
 
-- [OpenWeatherMap](https://openweathermap.org/) for the weather data
-- [Lucide](https://lucide.dev/) / [Weather Icons](https://erikflowers.github.io/weather-icons/) for icons
+```
+src/
+├── App.jsx     UI, data fetching, and the weather-code lookup
+├── App.css     Layout and sky themes
+├── index.css   Global reset
+└── main.jsx    App entry point
+```
 
-## Contact
+## How it works
 
-Your Name – [@your-handle](https://twitter.com/your-handle) – you@example.com
+1. The city name is sent to the Open-Meteo geocoding API, which returns coordinates.
+2. The coordinates are sent to the forecast API, which returns current weather and a daily forecast.
+3. Temperatures are stored in °C and converted only when displayed, so switching units never needs a new request.
+4. Open-Meteo returns numeric weather codes, which the app maps to a label, an icon, and a sky theme.
 
-Project Link: [https://github.com/your-username/weather-app](https://github.com/your-username/weather-app)
->>>>>>> 3718036c44aa3b1c6bcb5009d6695ab55663b458
+## Ideas for next steps
+
+- "Use my location" button with the browser's geolocation API
+- Hourly forecast for the next 24 hours
+- City suggestions while typing
+
+## Credits
+
+- Weather data by [Open-Meteo.com](https://open-meteo.com), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Font: [Bricolage Grotesque](https://fonts.google.com/specimen/Bricolage+Grotesque) via Google Fonts
+
+Built by [@salambayo3](https://github.com/salambayo3).
